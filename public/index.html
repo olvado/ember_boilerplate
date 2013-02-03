@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weve Wallet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/app.css?v=1">
+</head>
+<body>
+
+
+  <script type="text/x-handlebars" data-template-name="application">
+    {{ outlet }}
+  </script>
+
+
+  <script type="text/x-handlebars" data-template-name="welcome">
+    <section class="welcome container">
+      <h1>Welcome</h1>
+      <p>The benefits of joining</p>
+      {{#linkTo "new-user" class="cta"}}Continue{{/linkTo}}
+    <section>
+  </script>  
+
+  <script type="text/x-handlebars" data-template-name="new-user">
+    <section class="new-user">
+      <article class="container">
+        <h1>Sign up</h1>
+        <form>
+          {{view Ember.TextField valueBinding="name" placeholder="name"}}
+          {{view Ember.TextField valueBinding="email" placeholder="email" type="email"}}
+          {{view Ember.TextField valueBinding="postcode" placeholder="postcode"}}
+          <button {{action submitForm }} class="cta">Save</button>
+          <button {{action cancel }} class="cta">Cancel</button>
+        </form>
+      </article>
+    </section>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="thankyou">
+    <article class="container">
+      <h1>Thank you for joining</h1>
+      <nav>
+        {{#linkTo "user.schemes" class="cta"}}Add schemes{{/linkTo}}
+      <nav>
+    </article>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="user">
+    {{ name }}
+    {{#each scheme in schemes}}
+      {{ scheme.storeName }}
+    {{/each}}
+    {{ outlet }}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="schemes">
+    <section class="schemes">
+      <header>
+        <h2>Add cards</h2>
+      </header>
+      <ul>
+      {{#each scheme in controller}}
+        <li>
+          {{ partial "simpleScheme" }}
+        </li>
+      {{/each}}
+      </ul>
+    </section>
+    {{ outlet }}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="_simpleScheme">
+    <article class="scheme available">
+      {{#linkTo "schemes.scheme" scheme}}
+        <figure><img {{ bindAttr src="scheme.logoUrl" }}></figure>
+        <span class="store-name">{{ scheme.storeName }}</span>
+        <span class="card-name">{{ scheme.cardName }}</span>
+        {{#if scheme.user }}<span class="more">View</span>{{/if}}
+      {{/linkTo}}
+    </article>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="_joinedScheme">
+
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="scheme">
+    <section class="scheme">
+      <header>
+        <h2>Add scheme {{#linkTo "user.schemes" class="cancel"}}x{{/linkTo}}</h2>
+      </header>
+      <article class="details container">
+        <h3 class="page-title">{{ storeName }} <span>{{ cardName }}</span></h3>
+        <p>The benefits of joining this scheme</p>
+
+        <nav class="actions">
+          <a href="#" class="cta" {{action "addCard" this}}>Add existing card</a>
+          <a href="#" class="cta" {{action "addCard" this}}>Join</a>
+        </nav>
+      </article>
+    </section>
+  </script>
+
+  <!-- The missing protocol means that it will match the current protocol, either http or https. If running locally, we use the local jQuery. -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+  <script src="js/libs/handlebars-1.0.0.rc.2.js"></script>
+  <script src="js/libs/ember.js"></script>
+  <script src="js/libs/ember-data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/fixtures.js"></script>
+</body>
+</html>
