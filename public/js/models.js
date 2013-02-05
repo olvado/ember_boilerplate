@@ -3,3 +3,11 @@ App.Store = DS.Store.extend({
   adapter: 'DS.FixtureAdapter'
 });
 
+App.User = DS.Model.extend({
+  name:     DS.attr('string'),
+  cards:    DS.hasMany('App.Card')
+});
+
+App.Card = DS.Model.extend({
+  name: DS.attr('string')
+});
